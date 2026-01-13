@@ -1,5 +1,4 @@
 from django.shortcuts import render
 
-def home(request):
-    # Renderizamos la plantilla que ubicaste en la carpeta dashboard
-    return render(request, 'dashboard/base.html')
+def index(request): 
+    return render(request, 'dashboard/index.html')
