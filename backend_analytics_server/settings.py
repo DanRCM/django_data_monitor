@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import pymysql
 
+pymysql.version_info = (2, 2, 2, "final", 0) # <--- ¡Esta es la clave!
 pymysql.install_as_MySQLdb()
 # --- FIN DEL CAMBIO ---
 
