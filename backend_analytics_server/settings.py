@@ -136,19 +136,23 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-STATIC_ROOT = BASE_DIR / 'assets'
-
+# Confirmamos que Django busque en la carpeta 'static' de tu proyecto
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Carpeta donde se recolectarán para producción
+STATIC_ROOT = BASE_DIR / 'assets'
+
+# --- CAMBIO IMPORTANTE ---
+# Usamos el almacenamiento "Compressed" en lugar de "CompressedManifest"
+# Esto evita errores si falta algún archivo y suele arreglar el problema visual.
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # URL de la API externa (JSONPlaceholder para pruebas)
 API_URL = 'https://www.gamerpower.com/api/giveaways'
