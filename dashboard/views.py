@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.conf import settings  # Para acceder a API_URL
 import requests                   # Para hacer la petición
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def index(request):
     # 1. Realizar la solicitud GET a la API externa
     response = requests.get(settings.API_URL)
