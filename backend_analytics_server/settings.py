@@ -14,8 +14,6 @@ from pathlib import Path
 import os
 import pymysql
 
-pymysql.version_info = (2, 2, 2, "final", 0)
-
 pymysql.install_as_MySQLdb()
 # --- FIN DEL CAMBIO ---
 
@@ -30,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-&zr%&pkkf(bvlbfv(peuig=vu5eu&okc-f57^7fk4*=rjrtcw4"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -49,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -92,14 +91,13 @@ DATABASES = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
+  "https://*.up.railway.app",
   "https://*.app.github.dev", # Solo si utiliza Codespaces
   "https://localhost:8000",
   "http://127.0.0.1:8000"
 ]
 
-ALLOWED_HOSTS = [
-  "*",
-]
+ALLOWED_HOSTS = ['.up.railway.app']
 
 # Si alguien intenta entrar a una zona protegida (@login_required), mándalo aquí:
 LOGIN_URL = '/login/'
@@ -143,9 +141,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = BASE_DIR / 'assets'
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # URL de la API externa (JSONPlaceholder para pruebas)
 API_URL = 'https://www.gamerpower.com/api/giveaways'
